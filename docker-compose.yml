@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  devops-fe-app:
+    image: devops-fe-app
+    container_name: devops-fe-container
+    ports:
+      - "8080:80"
+    networks:
+      - devops_network
+    environment:
+      - ENV=${ENV}
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@devops-db:5432/${DB_NAME}
+    depends_on:
+      - devops-db
+    restart: unless-stopped
+
+  devops-db:
+    image: postgres:13
+    container_name: devops-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - devops_network
+    ports:
+      - "5432:5432"
+    volumes:
+      - devops-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+networks:
+  devops_network:
+    driver: bridge
+
+volumes:
+  devops-db-data:
+
