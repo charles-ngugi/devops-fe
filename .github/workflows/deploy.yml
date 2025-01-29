@@ -38,6 +38,10 @@ jobs:
       # Step 6: Terraform - Check if EC2 Exists
       - name: Check if EC2 exists
         run: |
+          # Configure AWS CLI with region
+          aws configure set region ${{ secrets.AWS_REGION }}
+
+          # Check EC2 instance status
           instance_status=$(aws ec2 describe-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --query "Reservations[0].Instances[0].State.Name" --output text)
           if [ "$instance_status" == "running" ]; then
             echo "EC2 instance is already running, skipping provisioning."
@@ -45,7 +49,6 @@ jobs:
             echo "EC2 instance not found or not running, provisioning..."
             terraform init
             terraform apply -auto-approve
-          fi
 
       # Step 7: SSH into EC2 and deploy the container
       - name: SSH to EC2 and deploy
