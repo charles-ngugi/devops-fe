@@ -63,5 +63,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker pull charlesngugi023/devops-fe:${{ github.sha }}
+            docker stop devops-fe
             docker rm devops-fe
             docker run -d --name devops-fe -p 80:80 charlesngugi023/devops-fe:${{ github.sha }}
