@@ -8,13 +8,11 @@ variable "key_name" {}
 variable "user_data" {
   default = <<-EOF
     #!/bin/bash
-    echo "Setting up instance..."
-    apt-get update
-    apt-get install -y nginx
-    apt install git
-    systemctl start nginx
-    systemctl start mysql
-    systemctl enable nginx
-    systemctl enable mysql
+    set -e
+    sudo apt update -y
+    sudo apt install -y docker.io
+    sudo systemctl enable docker
+    sudo systemctl start docker
+    sudo usermod -aG docker ubuntu  # Add ubuntu user to Docker group
     EOF
 }
