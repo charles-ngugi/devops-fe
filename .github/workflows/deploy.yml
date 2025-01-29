@@ -39,7 +39,8 @@ jobs:
       - name: Check if EC2 exists
         run: |
           # Configure AWS CLI with region
-          aws configure set region ${{ secrets.AWS_REGION }}
+          #aws configure set region ${{ secrets.AWS_REGION }}
+          aws configure set region af-south-1
 
           # Check EC2 instance status
           instance_status=$(aws ec2 describe-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --query "Reservations[0].Instances[0].State.Name" --output text)
