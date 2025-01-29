@@ -23,3 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+# Terraform files
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform/
+*.log
+*.aws.credentials
