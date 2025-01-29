@@ -45,6 +45,7 @@ jobs:
 
           # Check EC2 instance status
           instance_status=$(aws ec2 describe-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --query "Reservations[0].Instances[0].State.Name" --output text)
+          
           if [ "$instance_status" == "running" ]; then
             echo "EC2 instance is already running, skipping provisioning."
           else
