@@ -52,6 +52,7 @@ jobs:
             echo "EC2 instance not found or not running, provisioning..."
             terraform init
             terraform apply -auto-approve
+          fi  # <-- Added fi to close the if condition
 
       # Step 7: SSH into EC2 and deploy the container
       - name: SSH to EC2 and deploy
