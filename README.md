@@ -1,5 +1,6 @@
-DevOps CI/CD Pipeline for Docker and EC2 Deployment
-This project is a React-based frontend containerized with Docker, image pushed to dockerhub and deployed to AWS EC2 via a GitHub Actions CI/CD pipeline.
+Dockerized React App → GitHub Actions → Docker Hub → AWS EC2
+This project implements a CI/CD pipeline to automate the deployment of a React-based frontend containerized with Docker.
+The pipeline builds and pushes the Docker image to Docker Hub, provisions an EC2 instance (if needed), and deploys the latest version using GitHub Actions.
 
 ### 🚀 CI/CD Pipeline Workflow  
 
