@@ -38,9 +38,10 @@ jobs:
       # Step 6: Terraform - Check if EC2 Exists
       - name: Check if EC2 exists
         run: |
-          # Configure AWS CLI with region
-          #aws configure set region ${{ secrets.AWS_REGION }}
+          # Configure AWS CLI with region and credentials (hardcoded region)
           aws configure set region af-south-1
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
           # Check EC2 instance status
           instance_status=$(aws ec2 describe-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }} --query "Reservations[0].Instances[0].State.Name" --output text)
