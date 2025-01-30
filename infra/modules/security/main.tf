@@ -22,6 +22,13 @@ resource "aws_security_group" "main" {
     protocol    = "tcp"
     cidr_blocks = [var.my_ip]
   }
+  # Node exporter 
+  ingress {
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = [157.173.116.3/32]
+  }
 
   egress {
     from_port   = 0
