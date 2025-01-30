@@ -30,6 +30,14 @@ resource "aws_security_group" "main" {
     cidr_blocks = [157.173.116.3/32]
   }
 
+  # Cadvisor
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = [157.173.116.3/32]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
