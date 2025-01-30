@@ -1,14 +1,20 @@
 ---
 - name: Configure the EC2
-  hosts: devops_fe
-  become: true
+  hosts: all
+  become: yes
   tasks:
+    - name: Create devops group
+      ansible.builtin.group:
+        name: devops
+        state: present
+
     - name: Copy config file to /opt/
-      copy:
+      ansible.builtin.copy:
         src: ./config.txt
         dest: /opt/config.txt
-        mode: '0660'
+        owner: root
         group: devops
+        mode: '0644'
 
     - name: Install PostgreSQL
       apt:
