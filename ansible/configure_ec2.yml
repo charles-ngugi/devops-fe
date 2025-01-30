@@ -1,0 +1,33 @@
+---
+- name: Configure the EC2
+  hosts: devops_fe
+  become: true
+  tasks:
+    - name: Copy config file to /opt/
+      copy:
+        src: ./config.txt
+        dest: /opt/config.txt
+        mode: '0660'
+        group: devops
+
+    - name: Install PostgreSQL
+      apt:
+        name: postgresql
+        state: latest
+
+    - name: Ensure PostgreSQL service is running
+      service:
+        name: postgresql
+        state: started
+        enabled: true
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
