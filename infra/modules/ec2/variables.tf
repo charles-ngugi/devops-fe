@@ -21,7 +21,7 @@ variable "user_data" {
     sudo usermod -aG docker ubuntu  
 
     # Install cadvisor
-    docker run -d \
+    sudo docker run -d \
   --name=cadvisor \
   --restart unless-stopped \
   -p 8080:8080 \
