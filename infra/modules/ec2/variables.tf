@@ -21,15 +21,15 @@ variable "user_data" {
     sudo usermod -aG docker ubuntu  
 
     # Install cadvisor
-    sudo docker run -d \
+    sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:rw \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --publish=8080:8080 \
+  --detach=true \
   --name=cadvisor \
-  --restart unless-stopped \
-  -p 8080:8080 \
-  -v /:/rootfs:ro \
-  -v /var/run:/var/run:ro \
-  -v /sys:/sys:ro \
-  -v /var/lib/docker/:/var/lib/docker:ro \
-  google/cadvisor:latest
-
+  gcr.io/cadvisor/cadvisor:v0.39.3
+  
     EOF
 }
